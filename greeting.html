@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeTogethers</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Poppins', Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #FFFF00;
+      text-align: center;
+    }
+
+    /* Video Styling */
+    #backgroundVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    #greetingContainer {
+      text-align: center;
+      z-index: 1;
+      margin-bottom: 15%;
+    }
+
+    .greeting-message {
+      font-size: 2em;
+      margin-top: -20px;
+      color: #FFFF00;
+      animation: glow 2s infinite alternate;
+    }
+
+    /* Share Button Styling */
+    .share-button {
+      background-color: #FFD700;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-top: 20px;
+      z-index: 1;
+    }
+
+    /* Text Glow Animation */
+    @keyframes glow {
+
+      0%,
+      100% {
+        text-shadow: 0 0 10px #ffd700, 0 0 20px #FFD700, 0 0 30px #FFD700;
+      }
+
+      50% {
+        text-shadow: 0 0 20px #FFFF00, 0 0 30px #FF8C00, 0 0 40px #FF4500;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Video -->
+  <video id="backgroundVideo" autoplay muted loop playsinline>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Greeting Content -->
+  <div id="greetingContainer">
+    <h1>✨ Happy Diwali! ✨</h1>
+    <p id="personalGreeting" class="greeting-message">May this Diwali bring joy and prosperity to you and your loved
+      ones!</p>
+    <button class="share-button" id="shareBtn">Share This Greeting</button>
+  </div>
+
+  <script>
+    // Function to check if the user has visited the page before
+    function checkVisitor() {
+      const name = localStorage.getItem("visitorName");
+      if (!name) {
+        // Redirect to the homepage if there's no visitor name
+        window.location.href = "homepage.html"; // Change this to your actual homepage URL
+      } else {
+        document.getElementById("personalGreeting").innerText = `Happy Diwali, ${name}! May this festival bring peace, joy, and prosperity to your life! 🎉`;
+      }
+    }
+
+    // Call the function to check visitor
+    checkVisitor();
+
+    // Share function
+    document.getElementById("shareBtn").onclick = function () {
+      const message = document.getElementById("personalGreeting").innerText;
+      const shareData = {
+        title: 'Happy Diwali!',
+        text: message,
+        url: window.location.href // Current URL
+      };
+
+      if (navigator.share) {
+        navigator.share(shareData)
+          .then(() => console.log('Successfully shared'))
+          .catch((error) => console.log('Error sharing:', error));
+      } else {
+        // Fallback for browsers that do not support the Web Share API
+        const emailSubject = 'Happy Diwali!';
+        const emailBody = message + '\n\nCheck it out: ' + window.location.href;
+        window.location.href = `mailto:?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      }
+    };
+  </script>
+
+</body>
+
+</html>

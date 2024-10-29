@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to CodeTogethers</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Poppins', Arial, sans-serif;
+      color: #ffdf80;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Video Background Styling */
+    #backgroundVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    #formContainer {
+      background: rgba(0, 0, 0, 0.5);
+      /* Adjusted transparency for visibility */
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    #formContainer input[type="text"] {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 5px;
+      border: none;
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+      outline: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    #formContainer button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 1em;
+      color: #fff;
+      background: #ff8c00;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    #formContainer button:hover {
+      background: #ff4500;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Video -->
+  <video id="backgroundVideo" autoplay muted loop playsinline>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Form Content -->
+  <div id="formContainer">
+    <h1>Welcome to Diwali Celebration!</h1>
+    <p>Enter your name to receive a special Diwali greeting:</p>
+    <form id="nameForm">
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <button type="submit">Continue</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("nameForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      localStorage.setItem("visitorName", name);
+      window.location.href = "greeting.html"; // Redirect to second page
+    });
+  </script>
+
+</body>
+
+</html>
